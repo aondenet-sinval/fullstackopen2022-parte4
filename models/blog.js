@@ -1,10 +1,19 @@
 const mongoose = require('mongoose')
+const config = require('../utils/config')
+const User = require('../models/user')
+
+mongoose.connect(config.MONGODB_URI)
 
 const blogSchema = new mongoose.Schema( {
-  title: { type: String, minlength: 10 },
+  title: { type: String, required: true },
   author: { type: String, required: true },
+  blogs: Number,
   url: String,
-  likes: Number
+  likes: Number,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 } )
 
 blogSchema.set('toJSON', {
