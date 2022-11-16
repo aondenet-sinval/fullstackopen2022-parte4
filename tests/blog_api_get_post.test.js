@@ -71,19 +71,19 @@ beforeEach(async () => {
 describe('test router get', () => {
   //test com async/await
   test('all blogs are returned', async () => {
-    //Rota de criação do token
+    //Token creation route
     const resultAuthorizaton = await api.post('/api/login')
       .send( { username: 'root', password: 'nenialas' } )
     const response = await resultAuthorizaton.body
-    //Fim da definição do token
-    const token = await response.token//Token válido definido
+    //End of token definition
+    const token = await response.token//Valid token set
     const result = await api.get('/api/blogs')
       .set('Content-Type', 'application/json')
       .set('Authorization', `bearer ${token}`)
 
     expect(result.body).toHaveLength(initialBlogs.length)
   })
-  //search prop likes defined
+  //searching if likes property has been set
   test('search prop likes defined', async () => {
     let propLikes = { }
     await initialBlogs.forEach(result => {
@@ -112,11 +112,11 @@ describe('test router post', () => {
   })
   //test method post
   test('test method post authorizad', async () => {
-    //Rota de criação do token
+    //Token creation route
     const resultAuthorizaton = await api.post('/api/login')
       .send( { username: 'root', password: 'nenialas' } )
     const response = await resultAuthorizaton.body
-    //Fim da definição do token
+    //End of token definition
     const token = response.token
     const users = await User.find( { } )
     const blogPost = {
@@ -133,9 +133,8 @@ describe('test router post', () => {
       .send({ username: users[1].username, name: users[1].name })
       .send(blogPost)
       .expect(201)
-      // console.log('result post ', result);
   })
-  //Testar se há bloqueio de publicações sem a propriedade title
+  //Test for blocking of posts without the title property
   test('test blog create prop title undefined', async () => {
     const users = await User.find( { } )
     const blogUndefinedTitle = {
@@ -146,11 +145,11 @@ describe('test router post', () => {
       userId: users[1].id
     }
 
-    //Rota de criação do token
+    //Token creation route
     const resultAuthorizaton = await api.post('/api/login')
       .send( { username: 'root', password: 'nenialas' } )
     const response = await resultAuthorizaton.body
-    //Fim da definição do token
+    //End of token definition
     const token = response.token
     await api
       .post('/api/blogs')
@@ -158,20 +157,18 @@ describe('test router post', () => {
       .set('Authorization', `bearer ${token}`)
       .send( { username: users[1].username, name: users[1].name } )
       .send(blogUndefinedTitle)
-    // console.log('result ', result)
     expect(400)
   } )
 })
 describe('test propId', () => {
-  //test prop id nota important execute esse teste de modo individual
+  //run this test individually
   test('test prop ID undefined', async () => {
-    //Rota de criação do token
+    //Token creation route
     const resultAuthorizaton = await api.post('/api/login')
       .send( { username: 'root', password: 'nenialas' } )
     const response = await resultAuthorizaton.body
-    //Fim da definição do token
+    //End of token definition
     const token = response.token
-    //token pode ser definido somente em teste individual
     const result = await api.get('/api/blogs')
       .set('Content-Type', 'application/json')
       .set('Authorization', `bearer ${token}`)

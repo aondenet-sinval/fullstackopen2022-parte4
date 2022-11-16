@@ -2,7 +2,6 @@ const listHelper = require('../utils/list_helper')
 const mongoose = require('mongoose')
 const Blog = require('../models/blog')
 const logger = require('../utils/logger')
-// mongoose.connect(config.MONGODB_URI)
 describe('Favorite Blog' , () => {
   test('max likes blog', () => {
     let listOneBlog = {

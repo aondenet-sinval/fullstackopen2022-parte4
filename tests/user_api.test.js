@@ -2,8 +2,6 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
-// const Blog = require('../models/blog')
-// const listHelper = require('../utils/list_helper')
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
 
@@ -31,7 +29,7 @@ const userErr = [
     'password': 'sa'
   }
 ]
-//users teste
+//users test
 describe('Test initially one user in db collection users', () => {
 
   beforeEach(async () => {
@@ -61,13 +59,12 @@ describe('tests method posts', () => {
     await api.post('/api/users').send(initialUsers[0])
       .expect(401)
     expect( { error: 'username must be unique' } )
-    // console.log('test method post users username unique ', result)
   } )
   test('test method post users password', async () => {
     const response = await api.post('/api/users').send(userErr[1])
     const result = response.body
     expect(400)
-    expect(result).toEqual( { error: 'senha não atende ao critério tamanho' } )
+    expect(result).toEqual( { error: 'password does not meet the length criterion' } )
   } )
 })
 describe('tests method put', () => {
@@ -94,7 +91,7 @@ describe('tests method put', () => {
 describe('tests method delete', () => {
   //
   test('test method delete user', async () => {
-    //serach id user
+    //search id user
     const users = await User.find({})
     const userId = users[0].id
     await api

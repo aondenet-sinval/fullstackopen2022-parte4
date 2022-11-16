@@ -38,9 +38,7 @@ const getTokenFrom = async request => {
 const tokenExtractor = async (request, response, next) => {
   try {
     const token = await getTokenFrom(request)
-    // console.log('tokenExtractor ', token);
     const decodedToken = await jwt.verify(token, process.env.SECRET)
-    // console.log('decodedToken', decodedToken);
     if (!decodedToken.id) {
       return response.status(401).json( { error: 'token missing or invalid' } )
     }
@@ -55,8 +53,7 @@ const userExtractor = async (request, response, next) => {
   //
   const body = await request.body
   let user = await User.findById(body.userId)
-  // console.log('userExtractor ', user);
-  //adicionando usuário na solicitação request
+  //adding user in request request
   request.user = await user
   next()
 }

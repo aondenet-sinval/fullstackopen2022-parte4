@@ -29,8 +29,6 @@ const favoriteBlog = (listBlog) => {
   })
   return es
 }
-// mostBlogs recebe um array de blogs como o autor que possui a maior quantidade
-// de blogs e o número de blogs
 const mostBlogs = (array) => {
   let arrayBlogs = []
   array.forEach(i => {
@@ -45,19 +43,17 @@ const mostBlogs = (array) => {
   return author
 }
 const mostLikes = (array) => {
-  //Retorna author e total de curtidas
+  //Returns author and total likes
   let arrayLikes = []
   array.forEach(i => {
     arrayLikes.push(i.likes)
   })
   const maximo = _.max(arrayLikes)
   let authorLikes = _.find(array, function(o) {return o.likes === maximo } )
-  // authorLikes = authorLikes.toJSON()
   const upLikes = {
     author: authorLikes.author,
     likes: authorLikes.likes
   }
-  // console.log('upLikes ', upLikes)
   return upLikes
 }
 const usersInDb = async () => {

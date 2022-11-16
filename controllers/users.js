@@ -20,13 +20,13 @@ usersRouter.post('/', async (request, response, next) => {
   const { username, name, password } = request.body
 
   const existingUser = await User.findOne({ username })
-  //validar usuário exclusivo
+  //check user exclusivity
   if (existingUser) {
     return response.status(400).json({
       error: 'username must be unique'
     })
   }
-  //validar senha
+  //validate password
   if (password) {
     if (password.length < 3) {
       return response.status(400).json({
@@ -59,7 +59,7 @@ usersRouter.delete('/:id', (request, response, next) => {
 } )
 usersRouter.put('/:id', async (request, response, next) => {
   const { name, username, password } = request.body
-  //validar senha
+  //validate password
   if (password) {
     if (password.length < 3) {
       return response.status(400).json({

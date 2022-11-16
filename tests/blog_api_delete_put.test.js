@@ -99,8 +99,8 @@ describe('test router delete', () => {
     const res = response.body
     //define id
     const idUser = res[1].user.id
-    let blogId = res[1].id//id do blog
-    blogId = blogId.substring(9)//crashando id
+    let blogId = res[1].id
+    blogId = blogId.substring(9)//crashing id
 
     const responseDelete = await api
       .delete(`/api/blogs/${blogId}`)
