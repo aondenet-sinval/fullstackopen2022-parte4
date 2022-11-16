@@ -1,6 +1,5 @@
 const usersRouter = require('express').Router()
 const User = require('../models/user')
-const Blog = require('../models/blog')
 const bcrypt = require('bcrypt')
 
 usersRouter.get('/', async (request, response) => {
@@ -60,20 +59,20 @@ usersRouter.delete('/:id', (request, response, next) => {
 } )
 usersRouter.put('/:id', async (request, response, next) => {
   const { name, username, password } = request.body
-    //validar senha
-    if (password) {
-      if (password.length < 3) {
-        return response.status(400).json({
-          error: 'senha não atende ao critério tamanho'
-        })
-      }
+  //validar senha
+  if (password) {
+    if (password.length < 3) {
+      return response.status(400).json({
+        error: 'senha não atende ao critério tamanho'
+      })
     }
+  }
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
   const user = {
-   name: name,
-   username: username,
-   password: passwordHash,
+    name: name,
+    username: username,
+    password: passwordHash,
   }
   const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true } )
   try {

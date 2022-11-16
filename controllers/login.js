@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const loginRouter = require('express').Router()
 const User = require('../models/user')
 
+
 loginRouter.post('/', async (request, response) => {
   const { username, password } = request.body
 
@@ -16,14 +17,12 @@ loginRouter.post('/', async (request, response) => {
       error: 'invalid username or password'
     })
   }
-
+  const idUser = JSON.stringify(user._id)
   const userForToken = {
     username: user.username,
-    id: user._id,
+    id: idUser,
   }
-
-  const token = jwt.sign(userForToken, process.env.SECRET)
-
+  const token = jwt.sign( userForToken , process.env.SECRET )
   response
     .status(200)
     .send({ token, username: user.username, name: user.name })

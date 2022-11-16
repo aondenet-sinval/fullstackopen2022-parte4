@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const Blog = require('../models/blog')
 const logger = require('../utils/logger')
 // mongoose.connect(config.MONGODB_URI)
-describe('Most likes: ' , () => {
+describe('Most likes' , () => {
   test('most likes blog', () => {
     Blog.find( { } )
       .then(blogLists => {

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const config = require('../utils/config')
-const User = require('../models/user')
 
 mongoose.connect(config.MONGODB_URI)
 
